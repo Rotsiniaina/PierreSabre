@@ -1,44 +1,40 @@
 package personnages;
 
 public class Yakuza extends Humain {
-	private int reputation=0;
-	private String clan;
-	
-	public Yakuza(String nom, String boisson, int argent, String clan) {
-		super(nom, boisson, argent);
-		this.clan = clan;
-	}
-	
-	public void extorquer(Commercant victime) {
-		parler("Tiens, tiens, ne serait-ce pas un faible marchand qui passe par là ?");
-		parler(victime.getNom() + ", si tu tiens à la vie donne moi ta bourse !");
-		
-		int argentvole = victime.seFaireExtorquer();
-		gagnerArgent(argentvole);
-		reputation++;
-		
-		parler("J’ai piqué les "+ argentvole +" sous de "+ victime.getNom()
-		+ " , ce qui me fait "+getArgent() +" sous dans ma poche. Hi ! Hi !");
-	}
-	
-	public int perdre(){
-		int perte= getArgent();
-		setArgent(0);
-		reputation--;
-		parler("J’ai perdu mon duel et mes "+ perte +" sous, snif... J'ai déshonoré le clan de "
-		+ clan);
-		return perte;
-	}
-	
-	public void gagner(int gain) {
-		gagnerArgent(gain);
-		reputation++;
-		parler("Ce ronin pensait vraiment battre "+ getNom() +" du clan de " + clan
-				+ " ? Je l'ai dépouillé de ses " + gain + " sous.");
-	}
-	
-	public int getReputation() {
-		return reputation; 
-	}
-	
+    private String clan;
+    private int reputation = 0; 
+
+    public Yakuza(String nom, String boisson, int argent, String clan) {
+        super(nom, boisson, argent);
+        this.clan = clan;
+    }
+
+    public int getReputation() {
+        return reputation;
+    }
+
+    public void extorquer(Commercant victime) {
+        parler("Tiens, tiens, ne serait-ce pas un faible marchand qui passe par lÃ  ?");
+        parler(victime.getNom() + ", si tu tiens Ã  la vie donne moi ta bourse !");
+        int vol = victime.seFaireExtorquer();
+        gagnerArgent(vol);
+        reputation++;
+        parler("Jâ€™ai piquÃ© les " + vol + " sous de " + victime.getNom() +
+               ", ce qui me fait " + getArgent() + " sous dans ma poche. Hi ! Hi !");
+    }
+
+    public int perdre() {
+        int montant = perdreToutArgent();
+        reputation--;
+        parler("Jâ€™ai perdu mon duel et mes " + montant +
+               " sous, snif... J'ai dÃ©shonorÃ© le clan de " + clan + ".");
+        return montant;
+    }
+
+    public void gagner(int gain) {
+        gagnerArgent(gain);
+        reputation++;
+        parler("Ce ronin pensait vraiment battre " + getNom() + " du clan " + clan +
+               " ? Je l'ai dÃ©pouillÃ© de ses " + gain + " sous.");
+    }
 }
